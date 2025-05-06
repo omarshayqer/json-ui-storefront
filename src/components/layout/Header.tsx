@@ -1,5 +1,5 @@
 
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
   NavigationMenu,
@@ -18,7 +18,7 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <Link href="/" className="flex items-center">
+            <Link to="/" className="flex items-center">
               <span className="text-xl font-bold text-brand-dark">Dynamic eCommerce</span>
             </Link>
           </div>
@@ -27,11 +27,11 @@ export default function Header() {
           <NavigationMenu className="hidden md:block">
             <NavigationMenuList>
               <NavigationMenuItem>
-                <Link href="/" legacyBehavior passHref>
-                  <NavigationMenuLink className="px-3 py-2 text-gray-700 hover:text-brand">
+                <NavigationMenuLink asChild>
+                  <Link to="/" className="px-3 py-2 text-gray-700 hover:text-brand">
                     Home
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
               
               <NavigationMenuItem>
@@ -40,14 +40,17 @@ export default function Header() {
                   <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                     {["Clothing", "Electronics", "Home", "Beauty"].map((category) => (
                       <li key={category}>
-                        <Link href={`/shop?category=${category.toLowerCase()}`} legacyBehavior passHref>
-                          <NavigationMenuLink className="block p-3 rounded-md hover:bg-gray-100">
+                        <NavigationMenuLink asChild>
+                          <Link 
+                            to={`/shop?category=${category.toLowerCase()}`} 
+                            className="block p-3 rounded-md hover:bg-gray-100"
+                          >
                             <div className="text-sm font-medium text-gray-900">{category}</div>
                             <p className="text-sm text-gray-500">
                               Browse our {category.toLowerCase()} collection
                             </p>
-                          </NavigationMenuLink>
-                        </Link>
+                          </Link>
+                        </NavigationMenuLink>
                       </li>
                     ))}
                   </ul>
@@ -55,19 +58,19 @@ export default function Header() {
               </NavigationMenuItem>
               
               <NavigationMenuItem>
-                <Link href="#" legacyBehavior passHref>
-                  <NavigationMenuLink className="px-3 py-2 text-gray-700 hover:text-brand">
+                <NavigationMenuLink asChild>
+                  <Link to="#" className="px-3 py-2 text-gray-700 hover:text-brand">
                     About
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
               
               <NavigationMenuItem>
-                <Link href="#" legacyBehavior passHref>
-                  <NavigationMenuLink className="px-3 py-2 text-gray-700 hover:text-brand">
+                <NavigationMenuLink asChild>
+                  <Link to="#" className="px-3 py-2 text-gray-700 hover:text-brand">
                     Contact
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
