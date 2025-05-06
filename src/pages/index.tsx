@@ -1,8 +1,6 @@
 
 import DynamicPage from '@/components/dynamic-page/DynamicPage';
 
-const Index = () => {
+export default function HomePage() {
   return <DynamicPage pageName="home" />;
-};
-
-export default Index;
+}
