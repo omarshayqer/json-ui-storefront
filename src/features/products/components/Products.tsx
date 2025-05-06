@@ -4,12 +4,19 @@ import { ProductCard } from './ProductCard';
 
 interface ProductsProps {
   variant?: 'grid' | 'list';
+  displayVariant?: 'minimal' | 'standard' | 'detailed';
   title?: string;
   limit?: number;
   category?: string;
 }
 
-export default function Products({ variant = 'grid', title, limit, category }: ProductsProps) {
+export default function Products({ 
+  variant = 'grid', 
+  displayVariant = 'standard',
+  title, 
+  limit, 
+  category 
+}: ProductsProps) {
   const { products, loading, error } = useProducts({ limit, category });
 
   if (error) {
@@ -35,15 +42,25 @@ export default function Products({ variant = 'grid', title, limit, category }: P
         </div>
       ) : (
         variant === 'grid' ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className={`grid grid-cols-1 ${displayVariant === 'minimal' ? 'sm:grid-cols-3 lg:grid-cols-6' : 'sm:grid-cols-2 lg:grid-cols-4'} gap-6`}>
             {products.map((product) => (
-              <ProductCard key={product.id} product={product} variant="grid" />
+              <ProductCard 
+                key={product.id} 
+                product={product} 
+                variant="grid" 
+                displayVariant={displayVariant}
+              />
             ))}
           </div>
         ) : (
           <div className="space-y-6">
             {products.map((product) => (
-              <ProductCard key={product.id} product={product} variant="list" />
+              <ProductCard 
+                key={product.id} 
+                product={product} 
+                variant="list" 
+                displayVariant={displayVariant}
+              />
             ))}
           </div>
         )
