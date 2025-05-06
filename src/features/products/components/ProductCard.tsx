@@ -2,7 +2,6 @@
 import { Product } from '../hooks/useProducts';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import Image from 'next/image';
 import { Star } from 'lucide-react';
 
 interface ProductCardProps {
@@ -17,12 +16,10 @@ export function ProductCard({ product, variant = 'grid' }: ProductCardProps) {
     <Card className={`overflow-hidden transition-shadow hover:shadow-md ${isGrid ? 'h-full' : 'flex flex-row'}`}>
       <div className={isGrid ? '' : 'w-1/3'}>
         <div className={`relative ${isGrid ? 'h-48' : 'h-full'}`}>
-          <Image
+          <img
             src={product.image}
             alt={product.name}
-            className="object-cover"
-            fill
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover w-full h-full"
           />
         </div>
       </div>
