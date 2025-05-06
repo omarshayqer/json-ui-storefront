@@ -1,6 +1,7 @@
 
 // This file contains the JSON configuration for our pages
 import { getTemplateConfig } from './template-configs';
+import { create } from 'zustand';
 
 export interface ComponentConfig {
   id: string;
@@ -14,12 +15,26 @@ export interface PageConfig {
   components: ComponentConfig[];
 }
 
-// Use the standard template by default
-// This can be changed to 'premium' or 'minimal' to use other templates
-const selectedTemplate = 'standard';
-export const pagesConfig: PageConfig[] = getTemplateConfig(selectedTemplate);
+// Store to manage template selection
+interface TemplateStore {
+  selectedTemplate: string;
+  setTemplate: (template: string) => void;
+}
+
+export const useTemplateStore = create<TemplateStore>((set) => ({
+  selectedTemplate: 'standard',
+  setTemplate: (template) => set({ selectedTemplate: template }),
+}));
 
 // Helper function to get config for a specific page
 export function getPageConfig(pageName: string): PageConfig | undefined {
-  return pagesConfig.find(config => config.page === pageName);
+  const selectedTemplate = useTemplateStore.getState().selectedTemplate;
+  return getTemplateConfig(selectedTemplate).find(config => config.page === pageName);
 }
+
+// Function to get all available templates
+export const getAvailableTemplates = () => [
+  { id: 'standard', name: 'Standard' },
+  { id: 'premium', name: 'Premium' },
+  { id: 'minimal', name: 'Minimal' }
+];

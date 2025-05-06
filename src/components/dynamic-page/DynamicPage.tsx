@@ -2,6 +2,7 @@
 import { getPageConfig, PageConfig } from '@/config/page-config';
 import { renderComponent } from '@/lib/component-registry';
 import Header from '@/components/layout/Header';
+import TemplateSelector from '@/components/template-selector/TemplateSelector';
 import { useEffect } from 'react';
 
 interface DynamicPageProps {
@@ -27,6 +28,7 @@ export default function DynamicPage({ pageName }: DynamicPageProps) {
             <p className="mt-4 text-gray-600">The page configuration for "{pageName}" could not be found.</p>
           </div>
         </div>
+        <TemplateSelector />
       </div>
     );
   }
@@ -57,6 +59,7 @@ export default function DynamicPage({ pageName }: DynamicPageProps) {
         {pageConfig.components.find(comp => comp.type === 'footer') && 
           renderComponent(pageConfig.components.find(comp => comp.type === 'footer')!)
         }
+        <TemplateSelector />
       </div>
     );
   }
@@ -66,6 +69,7 @@ export default function DynamicPage({ pageName }: DynamicPageProps) {
     <div className="min-h-screen flex flex-col">
       <Header />
       {pageConfig.components.map(renderComponent)}
+      <TemplateSelector />
     </div>
   );
 }
