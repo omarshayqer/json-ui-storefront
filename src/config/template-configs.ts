@@ -21,6 +21,24 @@ export const templateAConfig: PageConfig[] = [
       { id: "shop-layout", type: "products", props: { variant: "grid", displayVariant: "standard", title: "All Products", limit: 8 } },
       { id: "main-footer", type: "footer" }
     ]
+  },
+  {
+    page: "about",
+    title: "About Us | Standard eCommerce",
+    components: [
+      { id: "about-header", type: "banner", props: { variant: "simple", title: "About Our Store", subtitle: "Learn more about our journey" } },
+      { id: "about-content", type: "aboutContent", props: { layout: "standard" } },
+      { id: "main-footer", type: "footer" }
+    ]
+  },
+  {
+    page: "cart",
+    title: "Your Cart | Standard eCommerce",
+    components: [
+      { id: "cart-header", type: "banner", props: { variant: "simple", title: "Your Shopping Cart", subtitle: "Review and checkout" } },
+      { id: "cart-content", type: "cartContent", props: { layout: "standard" } },
+      { id: "main-footer", type: "footer" }
+    ]
   }
 ];
 
@@ -46,6 +64,24 @@ export const templateBConfig: PageConfig[] = [
       { id: "shop-layout", type: "products", props: { variant: "list", displayVariant: "detailed", title: "Premium Selection", limit: 5 } },
       { id: "main-footer", type: "footer" }
     ]
+  },
+  {
+    page: "about",
+    title: "About Us | Premium eCommerce",
+    components: [
+      { id: "about-header", type: "banner", props: { variant: "hero", title: "Our Premium Brand", subtitle: "Craftsmanship and excellence since 2010" } },
+      { id: "about-content", type: "aboutContent", props: { layout: "premium" } },
+      { id: "main-footer", type: "footer" }
+    ]
+  },
+  {
+    page: "cart",
+    title: "Your Cart | Premium eCommerce",
+    components: [
+      { id: "cart-header", type: "banner", props: { variant: "simple", title: "Your Selections", subtitle: "Review your premium items" } },
+      { id: "cart-content", type: "cartContent", props: { layout: "premium" } },
+      { id: "main-footer", type: "footer" }
+    ]
   }
 ];
 
@@ -65,6 +101,22 @@ export const templateCConfig: PageConfig[] = [
     title: "Shop | Minimal eCommerce",
     components: [
       { id: "shop-layout", type: "products", props: { variant: "grid", displayVariant: "minimal", limit: 24 } },
+      { id: "main-footer", type: "footer" }
+    ]
+  },
+  {
+    page: "about",
+    title: "About | Minimal eCommerce",
+    components: [
+      { id: "about-content", type: "aboutContent", props: { layout: "minimal" } },
+      { id: "main-footer", type: "footer" }
+    ]
+  },
+  {
+    page: "cart",
+    title: "Cart | Minimal eCommerce",
+    components: [
+      { id: "cart-content", type: "cartContent", props: { layout: "minimal" } },
       { id: "main-footer", type: "footer" }
     ]
   }

@@ -59,7 +59,7 @@ export default function Header() {
               
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
-                  <Link to="#" className="px-3 py-2 text-gray-700 hover:text-brand">
+                  <Link to="/about" className="px-3 py-2 text-gray-700 hover:text-brand">
                     About
                   </Link>
                 </NavigationMenuLink>
@@ -88,9 +88,11 @@ export default function Header() {
             </Button>
             
             <Button variant="ghost" size="icon" className="text-gray-700 hover:text-brand relative">
-              <ShoppingCart className="h-5 w-5" />
-              <span className="sr-only">Cart</span>
-              <span className="absolute -top-1 -right-1 bg-brand text-white rounded-full text-xs h-5 w-5 flex items-center justify-center">3</span>
+              <Link to="/cart">
+                <ShoppingCart className="h-5 w-5" />
+                <span className="sr-only">Cart</span>
+                <span className="absolute -top-1 -right-1 bg-brand text-white rounded-full text-xs h-5 w-5 flex items-center justify-center">3</span>
+              </Link>
             </Button>
             
             <Button className="bg-brand hover:bg-brand-dark hidden md:inline-flex">

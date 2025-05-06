@@ -7,6 +7,8 @@ const Banner = lazy(() => import('@/features/banner/components/Banner'));
 const Products = lazy(() => import('@/features/products/components/Products'));
 const Footer = lazy(() => import('@/features/footer/components/Footer'));
 const Sidebar = lazy(() => import('@/features/sidebar/components/Sidebar'));
+const AboutContent = lazy(() => import('@/features/about/components/AboutContent'));
+const CartContent = lazy(() => import('@/features/cart/components/CartContent'));
 
 // Component registry mapping
 const componentRegistry: Record<string, React.ComponentType<any>> = {
@@ -14,6 +16,8 @@ const componentRegistry: Record<string, React.ComponentType<any>> = {
   'products': Products,
   'footer': Footer,
   'sidebar': Sidebar,
+  'aboutContent': AboutContent,
+  'cartContent': CartContent,
 };
 
 // Loading fallback
