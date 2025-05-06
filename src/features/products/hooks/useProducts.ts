@@ -1,20 +1,6 @@
 
 import { useState, useEffect } from 'react';
-
-interface Rating {
-  rate: number;
-  count: number;
-}
-
-export interface Product {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-  category: string;
-  image: string;
-  rating: Rating;
-}
+import { getProducts, Product } from '@/mocks/products';
 
 interface UseProductsParams {
   limit?: number;
@@ -30,27 +16,19 @@ export function useProducts({ limit, category }: UseProductsParams = {}) {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        // Build query params
-        const params = new URLSearchParams();
-        if (limit) params.append('limit', limit.toString());
-        if (category) params.append('category', category);
+        // Use the mock data instead of fetching from API
+        const data = getProducts({ limit, category });
         
-        // Fetch products
-        const queryString = params.toString() ? `?${params.toString()}` : '';
-        const response = await fetch(`/api/products${queryString}`);
-        
-        if (!response.ok) {
-          throw new Error(`Failed to fetch products: ${response.status}`);
-        }
-        
-        const data = await response.json();
-        setProducts(data);
-        setError(null);
+        // Add a small delay to simulate network request
+        setTimeout(() => {
+          setProducts(data);
+          setLoading(false);
+          setError(null);
+        }, 500);
       } catch (err) {
         console.error('Error fetching products:', err);
         setError(err instanceof Error ? err.message : 'Failed to fetch products');
         setProducts([]);
-      } finally {
         setLoading(false);
       }
     };
@@ -60,3 +38,5 @@ export function useProducts({ limit, category }: UseProductsParams = {}) {
 
   return { products, loading, error };
 }
+
+export type { Product };

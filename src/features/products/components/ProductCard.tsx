@@ -3,6 +3,7 @@ import { Product } from '../hooks/useProducts';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
 import { Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface ProductCardProps {
   product: Product;
@@ -22,17 +23,19 @@ export function ProductCard({
     return (
       <Card className={`overflow-hidden transition-shadow hover:shadow-md ${isGrid ? 'h-full' : 'flex flex-row'}`}>
         <div className={isGrid ? '' : 'w-1/4'}>
-          <div className={`relative ${isGrid ? 'h-40' : 'h-full'}`}>
+          <Link to={`/product/${product.id}`} className={`relative ${isGrid ? 'h-40' : 'h-full'} block`}>
             <img
               src={product.image}
               alt={product.name}
               className="object-cover w-full h-full"
             />
-          </div>
+          </Link>
         </div>
         <div className={isGrid ? '' : 'w-3/4'}>
           <CardHeader className="p-3">
-            <h3 className="font-medium text-md line-clamp-1">{product.name}</h3>
+            <Link to={`/product/${product.id}`} className="hover:underline">
+              <h3 className="font-medium text-md line-clamp-1">{product.name}</h3>
+            </Link>
             <p className="text-lg font-bold text-brand-dark">${product.price.toFixed(2)}</p>
           </CardHeader>
           <CardFooter className="p-3">
@@ -47,13 +50,13 @@ export function ProductCard({
     return (
       <Card className={`overflow-hidden transition-shadow hover:shadow-md ${isGrid ? 'h-full' : 'flex flex-row'}`}>
         <div className={isGrid ? '' : 'w-1/3'}>
-          <div className={`relative ${isGrid ? 'h-48' : 'h-full'}`}>
+          <Link to={`/product/${product.id}`} className={`relative ${isGrid ? 'h-48' : 'h-full'} block`}>
             <img
               src={product.image}
               alt={product.name}
               className="object-cover w-full h-full"
             />
-          </div>
+          </Link>
         </div>
         <div className={isGrid ? '' : 'w-2/3'}>
           <CardHeader className="p-4">
@@ -61,7 +64,9 @@ export function ProductCard({
               {product.category}
             </span>
             <div className="flex justify-between items-start">
-              <h3 className="font-semibold text-xl">{product.name}</h3>
+              <Link to={`/product/${product.id}`} className="hover:underline">
+                <h3 className="font-semibold text-xl">{product.name}</h3>
+              </Link>
               <div className="flex items-center space-x-1">
                 <Star className="h-5 w-5 text-yellow-400 fill-yellow-400" />
                 <span className="text-sm font-medium">{product.rating.rate} ({product.rating.count} reviews)</span>
@@ -89,18 +94,20 @@ export function ProductCard({
   return (
     <Card className={`overflow-hidden transition-shadow hover:shadow-md ${isGrid ? 'h-full' : 'flex flex-row'}`}>
       <div className={isGrid ? '' : 'w-1/3'}>
-        <div className={`relative ${isGrid ? 'h-48' : 'h-full'}`}>
+        <Link to={`/product/${product.id}`} className={`relative ${isGrid ? 'h-48' : 'h-full'} block`}>
           <img
             src={product.image}
             alt={product.name}
             className="object-cover w-full h-full"
           />
-        </div>
+        </Link>
       </div>
       <div className={isGrid ? '' : 'w-2/3'}>
         <CardHeader className="p-4">
           <div className="flex justify-between items-start">
-            <h3 className="font-medium text-lg line-clamp-1">{product.name}</h3>
+            <Link to={`/product/${product.id}`} className="hover:underline">
+              <h3 className="font-medium text-lg line-clamp-1">{product.name}</h3>
+            </Link>
             <div className="flex items-center space-x-1">
               <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
               <span className="text-sm">{product.rating.rate}</span>

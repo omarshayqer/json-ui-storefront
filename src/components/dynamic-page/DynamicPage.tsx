@@ -7,9 +7,10 @@ import { useEffect } from 'react';
 
 interface DynamicPageProps {
   pageName: string;
+  productId?: string;
 }
 
-export default function DynamicPage({ pageName }: DynamicPageProps) {
+export default function DynamicPage({ pageName, productId }: DynamicPageProps) {
   const pageConfig = getPageConfig(pageName);
 
   useEffect(() => {
@@ -17,6 +18,16 @@ export default function DynamicPage({ pageName }: DynamicPageProps) {
       document.title = pageConfig.title || 'Dynamic eCommerce';
     }
   }, [pageConfig]);
+
+  // Helper function to render a component with additional props
+  const renderWithProps = (component: any) => {
+    const props = component.props || {};
+    // Add productId to components that might need it
+    if (productId && (component.type === 'productDetail')) {
+      return renderComponent({ ...component, props: { ...props, productId } });
+    }
+    return renderComponent(component);
+  };
 
   if (!pageConfig) {
     return (
@@ -52,7 +63,7 @@ export default function DynamicPage({ pageName }: DynamicPageProps) {
             <div className="md:w-3/4">
               {pageConfig.components
                 .filter(comp => comp.type !== 'sidebar' && comp.type !== 'banner' && comp.type !== 'footer')
-                .map(renderComponent)}
+                .map(renderWithProps)}
             </div>
           </div>
         </div>
@@ -68,7 +79,7 @@ export default function DynamicPage({ pageName }: DynamicPageProps) {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      {pageConfig.components.map(renderComponent)}
+      {pageConfig.components.map(renderWithProps)}
       <TemplateSelector />
     </div>
   );
