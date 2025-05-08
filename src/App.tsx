@@ -11,6 +11,8 @@ import CartPage from "./pages/cart";
 import OrdersPage from "./pages/orders";
 import ProductDetailsPage from "./pages/product-details";
 import NotFound from "./pages/NotFound";
+import SupportButton from "./features/support/components/SupportButton";
+import MiniCart from "./features/cart/components/MiniCart";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +31,8 @@ const App = () => (
           <Route path="/product/:id" element={<ProductDetailsPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <SupportButton position="bottom-right" theme="light" />
+        <MiniCart position="right" theme="light" />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

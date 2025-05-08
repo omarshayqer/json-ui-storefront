@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useCartActions, CartItem } from "../hooks/useCartActions";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -10,17 +10,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
-import { X, Plus, Minus, ShoppingCart } from "lucide-react";
+import { X, Plus, Minus, ShoppingCart, Loader2 } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { toast } from "sonner";
-
-interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  image: string;
-}
+import { useState } from "react";
 
 interface CartContentProps {
   layout?: 'standard' | 'premium' | 'minimal';
@@ -28,7 +20,7 @@ interface CartContentProps {
 
 export default function CartContent({ layout = 'standard' }: CartContentProps) {
   // Demo cart items
-  const [cartItems, setCartItems] = useState<CartItem[]>([
+  const initialCartItems: CartItem[] = [
     {
       id: 1,
       name: "Premium Cotton T-Shirt",
@@ -50,32 +42,16 @@ export default function CartContent({ layout = 'standard' }: CartContentProps) {
       quantity: 1,
       image: "https://images.unsplash.com/photo-1721322800607-8c38375eef04"
     }
-  ]);
+  ];
 
-  const updateQuantity = (id: number, change: number) => {
-    setCartItems(items =>
-      items.map(item => {
-        if (item.id === id) {
-          const newQuantity = Math.max(1, item.quantity + change);
-          return { ...item, quantity: newQuantity };
-        }
-        return item;
-      })
-    );
-  };
-
-  const removeItem = (id: number) => {
-    setCartItems(items => items.filter(item => item.id !== id));
-    toast.success("Item removed from cart");
-  };
-
-  const calculateSubtotal = () => {
-    return cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  };
-
-  const handleCheckout = () => {
-    toast.success("Proceeding to checkout!");
-  };
+  const {
+    cartItems,
+    updateQuantity,
+    removeItem,
+    calculateSubtotal,
+    handleCheckout,
+    isCheckingOut
+  } = useCartActions(initialCartItems);
 
   if (layout === 'premium') {
     return (
@@ -178,8 +154,20 @@ export default function CartContent({ layout = 'standard' }: CartContentProps) {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button className="w-full" size="lg" onClick={handleCheckout}>
-                  Proceed to Checkout
+                <Button 
+                  className="w-full" 
+                  size="lg" 
+                  onClick={handleCheckout}
+                  disabled={isCheckingOut}
+                >
+                  {isCheckingOut ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    "Proceed to Checkout"
+                  )}
                 </Button>
               </CardFooter>
             </Card>
@@ -246,7 +234,20 @@ export default function CartContent({ layout = 'standard' }: CartContentProps) {
                 <span className="font-medium">Total</span>
                 <span className="font-medium">${calculateSubtotal().toFixed(2)}</span>
               </div>
-              <Button className="w-full" onClick={handleCheckout}>Checkout</Button>
+              <Button 
+                className="w-full" 
+                onClick={handleCheckout}
+                disabled={isCheckingOut}
+              >
+                {isCheckingOut ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  "Checkout"
+                )}
+              </Button>
             </div>
           </div>
         ) : (
@@ -370,8 +371,19 @@ export default function CartContent({ layout = 'standard' }: CartContentProps) {
               </div>
             </CardContent>
             <CardFooter>
-              <Button className="w-full" onClick={handleCheckout}>
-                Proceed to Checkout
+              <Button 
+                className="w-full" 
+                onClick={handleCheckout}
+                disabled={isCheckingOut}
+              >
+                {isCheckingOut ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  "Proceed to Checkout"
+                )}
               </Button>
             </CardFooter>
           </Card>

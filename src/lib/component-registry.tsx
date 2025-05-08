@@ -1,3 +1,4 @@
+
 import React, { lazy, Suspense } from 'react';
 import { ComponentConfig } from '@/config/page-config';
 
@@ -10,6 +11,12 @@ const AboutContent = lazy(() => import('@/features/about/components/AboutContent
 const CartContent = lazy(() => import('@/features/cart/components/CartContent'));
 const ProductDetail = lazy(() => import('@/features/products/components/ProductDetail'));
 const OrdersContent = lazy(() => import('@/features/orders/components/OrdersContent'));
+const FeaturedProducts = lazy(() => import('@/features/carousel/components/FeaturedProducts'));
+const ProductCollection = lazy(() => import('@/features/collections/components/ProductCollection'));
+const StoreLocation = lazy(() => import('@/features/store-location/components/StoreLocation'));
+const Testimonials = lazy(() => import('@/features/testimonials/components/Testimonials'));
+const SupportButton = lazy(() => import('@/features/support/components/SupportButton'));
+const MiniCart = lazy(() => import('@/features/cart/components/MiniCart'));
 
 // Component registry mapping
 const componentRegistry: Record<string, React.ComponentType<any>> = {
@@ -21,6 +28,12 @@ const componentRegistry: Record<string, React.ComponentType<any>> = {
   'cartContent': CartContent,
   'productDetail': ProductDetail,
   'ordersContent': OrdersContent,
+  'featuredProducts': FeaturedProducts,
+  'productCollection': ProductCollection,
+  'storeLocation': StoreLocation,
+  'testimonials': Testimonials,
+  'supportButton': SupportButton,
+  'miniCart': MiniCart,
 };
 
 // Loading fallback
@@ -42,6 +55,10 @@ export function renderComponent(component: any) {
   switch (component.type) {
     case 'ordersContent':
       return <OrdersContent key={component.id} {...component.props} />;
+    case 'supportButton':
+    case 'miniCart':
+      // These components should render directly without Suspense
+      return <Component key={component.id} {...(component.props || {})} />;
     default:
       return (
         <Suspense key={component.id} fallback={<ComponentLoader />}>
