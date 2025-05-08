@@ -11,6 +11,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useProducts } from "@/features/products/hooks/useProducts";
 import { Link } from "react-router-dom";
+import { AnimatedElement } from "@/components/ui/animated-element";
 
 interface FeaturedProductsProps {
   autoplaySpeed?: number;
@@ -101,9 +102,9 @@ export default function FeaturedProducts({
                       <span className="text-3xl font-bold text-brand mr-3">
                         ${product.price.toFixed(2)}
                       </span>
-                      {product.salePrice && (
+                      {product.originalPrice && product.originalPrice > product.price && (
                         <span className="text-xl text-gray-400 line-through">
-                          ${product.salePrice.toFixed(2)}
+                          ${product.originalPrice.toFixed(2)}
                         </span>
                       )}
                     </div>
@@ -144,14 +145,14 @@ export default function FeaturedProducts({
           {products.map((product, index) => (
             <CarouselItem key={product.id}>
               <div className="h-[400px] grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div className="h-full bg-white flex items-center justify-center p-8">
+                <AnimatedElement animation="fade-left" className="h-full bg-white flex items-center justify-center p-8">
                   <img 
                     src={product.image} 
                     alt={product.name} 
                     className="max-h-[300px] max-w-full object-contain" 
                   />
-                </div>
-                <div className="p-8 flex flex-col justify-center">
+                </AnimatedElement>
+                <AnimatedElement animation="fade-right" className="p-8 flex flex-col justify-center">
                   <span className="text-sm font-medium text-brand mb-2">Featured Product</span>
                   <h2 className="text-2xl font-bold mb-2">{product.name}</h2>
                   <p className="text-gray-500 mb-4">{product.description}</p>
@@ -159,16 +160,16 @@ export default function FeaturedProducts({
                     <span className="text-2xl font-bold">
                       ${product.price.toFixed(2)}
                     </span>
-                    {product.salePrice && (
+                    {product.originalPrice && product.originalPrice > product.price && (
                       <span className="text-lg text-gray-400 line-through ml-2">
-                        ${product.salePrice.toFixed(2)}
+                        ${product.originalPrice.toFixed(2)}
                       </span>
                     )}
                   </div>
                   <Link to={`/product/${product.id}`}>
                     <Button>Shop Now</Button>
                   </Link>
-                </div>
+                </AnimatedElement>
               </div>
             </CarouselItem>
           ))}

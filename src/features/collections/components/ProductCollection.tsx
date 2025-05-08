@@ -3,6 +3,9 @@ import { useRef, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { AnimatedElement } from "@/components/ui/animated-element";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ChevronDown } from "lucide-react";
 
 interface Collection {
   id: string;
@@ -115,35 +118,42 @@ export default function ProductCollection({
     return (
       <div className="py-8">
         {title && (
-          <h2 className="text-xl font-medium mb-4 text-center">{title}</h2>
+          <AnimatedElement animation="fade-up" className="mb-4">
+            <h2 className="text-xl font-medium text-center">{title}</h2>
+          </AnimatedElement>
         )}
         
-        <div 
-          className="flex overflow-x-auto scrollbar-hide space-x-4 pb-4"
-          ref={scrollRef}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          {collections.map((collection) => (
-            <Link 
-              key={collection.id}
-              to={collection.path}
-              className="flex-none w-36 group"
-            >
-              <div className="w-full aspect-square rounded-md overflow-hidden bg-gray-100">
-                <img 
-                  src={collection.image} 
-                  alt={collection.name} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
-                />
-              </div>
-              <div className="mt-2 text-center">
-                <h3 className="text-sm font-medium">{collection.name}</h3>
-                <p className="text-xs text-gray-500">{collection.productCount} products</p>
-              </div>
-            </Link>
-          ))}
-        </div>
+        <ScrollArea className="w-full overflow-x-auto">
+          <div 
+            className="flex space-x-4 pb-4"
+            ref={scrollRef}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            {collections.map((collection, index) => (
+              <AnimatedElement 
+                key={collection.id}
+                animation="fade-up" 
+                delay={index * 100}
+                className="flex-none w-36 group"
+              >
+                <Link to={collection.path}>
+                  <div className="w-full aspect-square rounded-md overflow-hidden bg-gray-100">
+                    <img 
+                      src={collection.image} 
+                      alt={collection.name} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                    />
+                  </div>
+                  <div className="mt-2 text-center">
+                    <h3 className="text-sm font-medium">{collection.name}</h3>
+                    <p className="text-xs text-gray-500">{collection.productCount} products</p>
+                  </div>
+                </Link>
+              </AnimatedElement>
+            ))}
+          </div>
+        </ScrollArea>
       </div>
     );
   }
@@ -153,51 +163,56 @@ export default function ProductCollection({
       <div className="py-16 bg-gradient-to-b from-white to-gray-50">
         <div className="container mx-auto px-4">
           {title && (
-            <div className="text-center mb-12">
+            <AnimatedElement animation="fade-up" className="text-center mb-12">
               <h2 className="text-3xl font-bold">{title}</h2>
               <div className="w-24 h-1 bg-brand mx-auto mt-4"></div>
-            </div>
+            </AnimatedElement>
           )}
           
-          <div 
-            className="flex overflow-x-auto snap-x scrollbar-hide space-x-6 pb-6"
-            ref={scrollRef}
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-          >
-            {collections.map((collection) => (
-              <Link 
-                key={collection.id}
-                to={collection.path}
-                className="flex-none w-72 snap-start group"
-              >
-                <div className="w-full aspect-[3/4] rounded-lg overflow-hidden relative">
-                  <img 
-                    src={collection.image} 
-                    alt={collection.name} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                    <div className="text-white">
-                      <h3 className="text-xl font-bold">{collection.name}</h3>
-                      <p className="text-white/80 mt-1">{collection.productCount} Items</p>
-                      <div className="inline-block mt-3 transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                        <span className="text-sm font-medium border-b border-white pb-0.5">
-                          Explore Collection
-                        </span>
+          <ScrollArea className="w-full">
+            <div 
+              className="flex space-x-6 pb-6"
+              ref={scrollRef}
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+            >
+              {collections.map((collection, index) => (
+                <AnimatedElement 
+                  key={collection.id}
+                  animation="fade-up" 
+                  delay={index * 150}
+                  className="flex-none w-72 group"
+                >
+                  <Link to={collection.path}>
+                    <div className="w-full aspect-[3/4] rounded-lg overflow-hidden relative">
+                      <img 
+                        src={collection.image} 
+                        alt={collection.name} 
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                        <div className="text-white">
+                          <h3 className="text-xl font-bold">{collection.name}</h3>
+                          <p className="text-white/80 mt-1">{collection.productCount} Items</p>
+                          <div className="inline-block mt-3 transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                            <span className="text-sm font-medium border-b border-white pb-0.5">
+                              Explore Collection
+                            </span>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+                  </Link>
+                </AnimatedElement>
+              ))}
+            </div>
+          </ScrollArea>
           
-          <div className="flex justify-center mt-8">
+          <AnimatedElement animation="fade-up" delay={300} className="flex justify-center mt-8">
             <Button variant="outline" size="lg" className="px-8">
               View All Collections
             </Button>
-          </div>
+          </AnimatedElement>
         </div>
       </div>
     );
@@ -208,43 +223,56 @@ export default function ProductCollection({
     <div className="py-12 bg-gray-50">
       <div className="container mx-auto px-4">
         {title && (
-          <h2 className="text-2xl font-bold mb-8">{title}</h2>
+          <AnimatedElement animation="fade-up">
+            <h2 className="text-2xl font-bold mb-8">{title}</h2>
+          </AnimatedElement>
         )}
         
-        <div 
-          className="grid grid-flow-col auto-cols-[280px] gap-6 overflow-x-auto pb-6 scrollbar-hide"
-          ref={scrollRef}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-        >
-          {collections.map((collection) => (
-            <Link 
-              key={collection.id}
-              to={collection.path}
-              className="group cursor-pointer"
-            >
-              <div className="aspect-[4/3] rounded-lg overflow-hidden relative">
-                <img 
-                  src={collection.image} 
-                  alt={collection.name} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
-                />
-                <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                  <div className="bg-white/90 px-4 py-2 rounded-md text-center transform group-hover:scale-105 transition-transform duration-300">
-                    <h3 className="font-medium text-gray-900">{collection.name}</h3>
-                    <p className="text-sm text-gray-500">{collection.productCount} Products</p>
+        <ScrollArea className="w-full">
+          <div 
+            className="grid grid-flow-col auto-cols-[280px] gap-6 pb-6"
+            ref={scrollRef}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+          >
+            {collections.map((collection, index) => (
+              <AnimatedElement 
+                key={collection.id}
+                animation="fade-up" 
+                delay={index * 120}
+                className="group cursor-pointer"
+              >
+                <Link to={collection.path}>
+                  <div className="aspect-[4/3] rounded-lg overflow-hidden relative">
+                    <img 
+                      src={collection.image} 
+                      alt={collection.name} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
+                    />
+                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
+                      <div className="bg-white/90 px-4 py-2 rounded-md text-center transform group-hover:scale-105 transition-transform duration-300">
+                        <h3 className="font-medium text-gray-900">{collection.name}</h3>
+                        <p className="text-sm text-gray-500">{collection.productCount} Products</p>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+                </Link>
+              </AnimatedElement>
+            ))}
+          </div>
+        </ScrollArea>
         
-        <div className="flex justify-center mt-8">
+        <AnimatedElement animation="fade-up" delay={300} className="flex justify-center mt-8">
           <Link to="/shop">
             <Button>View All Collections</Button>
           </Link>
-        </div>
+        </AnimatedElement>
+
+        <AnimatedElement animation="fade-up" delay={400} className="flex justify-center mt-16">
+          <a href="#next-section" className="animate-bounce">
+            <ChevronDown className="h-8 w-8 text-brand" />
+          </a>
+        </AnimatedElement>
       </div>
     </div>
   );
