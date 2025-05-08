@@ -1,0 +1,70 @@
+
+{
+  "pages": [
+    {
+      "page": "home",
+      "title": "Home | Standard eCommerce",
+      "components": [
+        { "id": "hero-banner", "type": "banner", "props": { "variant": "hero", "title": "Welcome to our Store", "subtitle": "Shop the latest products with amazing deals" } },
+        { "id": "featured-products", "type": "products", "props": { "variant": "grid", "displayVariant": "standard", "title": "Featured Products", "limit": 4 } },
+        { "id": "promotional-banner", "type": "banner", "props": { "variant": "promo", "title": "Summer Sale", "subtitle": "Get up to 40% off on selected items" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "shop",
+      "title": "Shop | Standard eCommerce",
+      "components": [
+        { "id": "shop-header", "type": "banner", "props": { "variant": "simple", "title": "Our Products", "subtitle": "Explore our collection" } },
+        { "id": "shop-layout", "type": "products", "props": { "variant": "grid", "displayVariant": "standard", "title": "All Products", "limit": 8 } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "about",
+      "title": "About Us | Standard eCommerce",
+      "components": [
+        { "id": "about-header", "type": "banner", "props": { "variant": "simple", "title": "About Our Store", "subtitle": "Learn more about our journey" } },
+        { "id": "about-content", "type": "aboutContent", "props": { "layout": "standard" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "cart",
+      "title": "Your Cart | Standard eCommerce",
+      "components": [
+        { "id": "cart-header", "type": "banner", "props": { "variant": "simple", "title": "Your Shopping Cart", "subtitle": "Review and checkout" } },
+        { "id": "cart-content", "type": "cartContent", "props": { "layout": "standard" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "product-details",
+      "title": "Product Details | Standard eCommerce",
+      "components": [
+        { "id": "product-header", "type": "banner", "props": { "variant": "simple", "title": "Product Details", "subtitle": "View product information" } },
+        { "id": "product-detail", "type": "productDetail", "props": { "layout": "standard" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "orders",
+      "title": "Your Orders | Standard eCommerce",
+      "components": [
+        { "id": "orders-header", "type": "banner", "props": { "variant": "simple", "title": "Your Orders", "subtitle": "Review your purchase history" } },
+        { "id": "orders-content", "type": "ordersContent", "props": { "layout": "standard" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    }
+  ],
+  "navigation": {
+    "items": [
+      { "text": "Home", "link": "/", "icon": "home" },
+      { "text": "Shop", "link": "/shop", "icon": "shopping-cart" },
+      { "text": "About", "link": "/about", "icon": "info" }
+    ],
+    "accountItems": [
+      { "text": "Orders", "link": "/orders", "icon": "package", "requiredPlan": "standard" }
+    ]
+  }
+}

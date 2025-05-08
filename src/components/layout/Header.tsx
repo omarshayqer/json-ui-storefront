@@ -1,15 +1,8 @@
 
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
 import { Search, ShoppingCart, User } from 'lucide-react';
+import DynamicNav from './DynamicNav';
 
 export default function Header() {
   return (
@@ -24,56 +17,9 @@ export default function Header() {
           </div>
           
           {/* Main Navigation */}
-          <NavigationMenu className="hidden md:block">
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link to="/" className="px-3 py-2 text-gray-700 hover:text-brand">
-                    Home
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              
-              <NavigationMenuItem>
-                <NavigationMenuTrigger className="text-gray-700 hover:text-brand">Shop</NavigationMenuTrigger>
-                <NavigationMenuContent>
-                  <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                    {["Clothing", "Electronics", "Home", "Beauty"].map((category) => (
-                      <li key={category}>
-                        <NavigationMenuLink asChild>
-                          <Link 
-                            to={`/shop?category=${category.toLowerCase()}`} 
-                            className="block p-3 rounded-md hover:bg-gray-100"
-                          >
-                            <div className="text-sm font-medium text-gray-900">{category}</div>
-                            <p className="text-sm text-gray-500">
-                              Browse our {category.toLowerCase()} collection
-                            </p>
-                          </Link>
-                        </NavigationMenuLink>
-                      </li>
-                    ))}
-                  </ul>
-                </NavigationMenuContent>
-              </NavigationMenuItem>
-              
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link to="/about" className="px-3 py-2 text-gray-700 hover:text-brand">
-                    About
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link to="#" className="px-3 py-2 text-gray-700 hover:text-brand">
-                    Contact
-                  </Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+          <div className="hidden md:flex items-center">
+            <DynamicNav />
+          </div>
           
           {/* Right Side Icons */}
           <div className="flex items-center space-x-4">

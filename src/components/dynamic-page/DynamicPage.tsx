@@ -1,9 +1,11 @@
 
-import { getPageConfig, PageConfig } from '@/config/page-config';
+import { useEffect, useState } from 'react';
+import { PageConfig } from '@/config/page-config';
+import { getPageConfig } from '@/config/page-config';
 import { renderComponent } from '@/lib/component-registry';
 import Header from '@/components/layout/Header';
 import TemplateSelector from '@/components/template-selector/TemplateSelector';
-import { useEffect } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface DynamicPageProps {
   pageName: string;
@@ -11,13 +13,29 @@ interface DynamicPageProps {
 }
 
 export default function DynamicPage({ pageName, productId }: DynamicPageProps) {
-  const pageConfig = getPageConfig(pageName);
+  const [pageConfig, setPageConfig] = useState<PageConfig | undefined>(undefined);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
-    if (pageConfig) {
-      document.title = pageConfig.title || 'Dynamic eCommerce';
+    async function loadPageConfig() {
+      setLoading(true);
+      try {
+        const config = await getPageConfig(pageName);
+        setPageConfig(config);
+        if (config) {
+          document.title = config.title || 'Dynamic eCommerce';
+        }
+      } catch (err) {
+        console.error('Failed to load page config:', err);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
     }
-  }, [pageConfig]);
+    
+    loadPageConfig();
+  }, [pageName]);
 
   // Helper function to render a component with additional props
   const renderWithProps = (component: any) => {
@@ -29,7 +47,26 @@ export default function DynamicPage({ pageName, productId }: DynamicPageProps) {
     return renderComponent(component);
   };
 
-  if (!pageConfig) {
+  // Show loading skeleton
+  if (loading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <div className="flex-1 container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <Skeleton className="h-12 w-1/3 mb-6" />
+          <div className="space-y-4">
+            <Skeleton className="h-72 w-full" />
+            <Skeleton className="h-32 w-full" />
+            <Skeleton className="h-64 w-full" />
+          </div>
+        </div>
+        <TemplateSelector />
+      </div>
+    );
+  }
+
+  // Show error state
+  if (error || !pageConfig) {
     return (
       <div className="min-h-screen flex flex-col">
         <Header />

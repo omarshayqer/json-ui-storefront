@@ -1,6 +1,6 @@
 
-// This file contains the JSON configuration for our pages
-import { getTemplateConfig } from './template-configs';
+// This file contains the configuration for our pages
+import { getTemplateConfig, getTemplateNavigation, NavigationItem, TemplateNavigation } from './template-configs';
 import { create } from 'zustand';
 
 export interface ComponentConfig {
@@ -15,21 +15,30 @@ export interface PageConfig {
   components: ComponentConfig[];
 }
 
-// Store to manage template selection
+// Store to manage template selection and navigation
 interface TemplateStore {
   selectedTemplate: string;
   setTemplate: (template: string) => void;
+  navigation: TemplateNavigation | null;
+  setNavigation: (navigation: TemplateNavigation) => void;
+  isLoading: boolean;
+  setIsLoading: (isLoading: boolean) => void;
 }
 
 export const useTemplateStore = create<TemplateStore>((set) => ({
   selectedTemplate: 'standard',
   setTemplate: (template) => set({ selectedTemplate: template }),
+  navigation: null,
+  setNavigation: (navigation) => set({ navigation }),
+  isLoading: false,
+  setIsLoading: (isLoading) => set({ isLoading })
 }));
 
 // Helper function to get config for a specific page
-export function getPageConfig(pageName: string): PageConfig | undefined {
+export async function getPageConfig(pageName: string): Promise<PageConfig | undefined> {
   const selectedTemplate = useTemplateStore.getState().selectedTemplate;
-  return getTemplateConfig(selectedTemplate).find(config => config.page === pageName);
+  const pages = await getTemplateConfig(selectedTemplate);
+  return pages.find(config => config.page === pageName);
 }
 
 // Function to get all available templates
@@ -38,3 +47,18 @@ export const getAvailableTemplates = () => [
   { id: 'premium', name: 'Premium' },
   { id: 'minimal', name: 'Minimal' }
 ];
+
+// Function to load navigation for the current template
+export const loadTemplateNavigation = async () => {
+  const { selectedTemplate, setNavigation, setIsLoading } = useTemplateStore.getState();
+  setIsLoading(true);
+  
+  try {
+    const navigation = await getTemplateNavigation(selectedTemplate);
+    setNavigation(navigation);
+  } catch (error) {
+    console.error('Failed to load navigation:', error);
+  } finally {
+    setIsLoading(false);
+  }
+};

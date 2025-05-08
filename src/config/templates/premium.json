@@ -1,0 +1,72 @@
+
+{
+  "pages": [
+    {
+      "page": "home",
+      "title": "Home | Premium eCommerce",
+      "components": [
+        { "id": "hero-banner", "type": "banner", "props": { "variant": "hero", "title": "Exclusive Collections", "subtitle": "Discover our premium selection" } },
+        { "id": "featured-products", "type": "products", "props": { "variant": "grid", "displayVariant": "detailed", "title": "Featured Items", "limit": 3 } },
+        { "id": "promotional-banner", "type": "banner", "props": { "variant": "promo", "title": "Limited Edition", "subtitle": "Shop our exclusive items before they're gone" } },
+        { "id": "quick-products", "type": "products", "props": { "variant": "grid", "displayVariant": "minimal", "title": "Bestsellers", "limit": 6 } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "shop",
+      "title": "Shop | Premium eCommerce",
+      "components": [
+        { "id": "shop-header", "type": "banner", "props": { "variant": "simple", "title": "Our Collection", "subtitle": "Premium quality products" } },
+        { "id": "shop-sidebar", "type": "sidebar", "props": { "categories": ["Luxury", "Designer", "Limited Edition", "Seasonal"] } },
+        { "id": "shop-layout", "type": "products", "props": { "variant": "list", "displayVariant": "detailed", "title": "Premium Selection", "limit": 5 } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "about",
+      "title": "About Us | Premium eCommerce",
+      "components": [
+        { "id": "about-header", "type": "banner", "props": { "variant": "hero", "title": "Our Premium Brand", "subtitle": "Craftsmanship and excellence since 2010" } },
+        { "id": "about-content", "type": "aboutContent", "props": { "layout": "premium" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "cart",
+      "title": "Your Cart | Premium eCommerce",
+      "components": [
+        { "id": "cart-header", "type": "banner", "props": { "variant": "simple", "title": "Your Selections", "subtitle": "Review your premium items" } },
+        { "id": "cart-content", "type": "cartContent", "props": { "layout": "premium" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "product-details",
+      "title": "Product Details | Premium eCommerce",
+      "components": [
+        { "id": "product-header", "type": "banner", "props": { "variant": "hero", "title": "Product Showcase", "subtitle": "Explore our premium offering" } },
+        { "id": "product-detail", "type": "productDetail", "props": { "layout": "premium" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "orders",
+      "title": "Your Orders | Premium eCommerce",
+      "components": [
+        { "id": "orders-header", "type": "banner", "props": { "variant": "hero", "title": "Your Purchase History", "subtitle": "View and manage your exclusive orders" } },
+        { "id": "orders-content", "type": "ordersContent", "props": { "layout": "premium", "showTracking": true, "showReturns": true } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    }
+  ],
+  "navigation": {
+    "items": [
+      { "text": "Home", "link": "/", "icon": "home" },
+      { "text": "Shop", "link": "/shop", "icon": "shopping-cart" },
+      { "text": "About", "link": "/about", "icon": "info" }
+    ],
+    "accountItems": [
+      { "text": "Orders", "link": "/orders", "icon": "package", "requiredPlan": "premium" }
+    ]
+  }
+}

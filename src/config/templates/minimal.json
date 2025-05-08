@@ -1,0 +1,64 @@
+
+{
+  "pages": [
+    {
+      "page": "home",
+      "title": "Home | Minimal eCommerce",
+      "components": [
+        { "id": "simple-banner", "type": "banner", "props": { "variant": "simple", "title": "Minimal Store", "subtitle": "Less is more" } },
+        { "id": "minimal-products", "type": "products", "props": { "variant": "grid", "displayVariant": "minimal", "title": "Shop", "limit": 12 } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "shop",
+      "title": "Shop | Minimal eCommerce",
+      "components": [
+        { "id": "shop-layout", "type": "products", "props": { "variant": "grid", "displayVariant": "minimal", "limit": 24 } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "about",
+      "title": "About | Minimal eCommerce",
+      "components": [
+        { "id": "about-content", "type": "aboutContent", "props": { "layout": "minimal" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "cart",
+      "title": "Cart | Minimal eCommerce",
+      "components": [
+        { "id": "cart-content", "type": "cartContent", "props": { "layout": "minimal" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "product-details",
+      "title": "Product | Minimal eCommerce",
+      "components": [
+        { "id": "product-detail", "type": "productDetail", "props": { "layout": "minimal" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "orders",
+      "title": "Orders | Minimal eCommerce",
+      "components": [
+        { "id": "orders-content", "type": "ordersContent", "props": { "layout": "minimal" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    }
+  ],
+  "navigation": {
+    "items": [
+      { "text": "Home", "link": "/", "icon": "home" },
+      { "text": "Shop", "link": "/shop", "icon": "shopping-cart" },
+      { "text": "About", "link": "/about", "icon": "info" }
+    ],
+    "accountItems": [
+      { "text": "Orders", "link": "/orders", "icon": "package", "requiredPlan": "minimal" }
+    ]
+  }
+}

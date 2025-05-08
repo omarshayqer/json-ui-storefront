@@ -1,4 +1,3 @@
-
 import React, { lazy, Suspense } from 'react';
 import { ComponentConfig } from '@/config/page-config';
 
@@ -10,6 +9,7 @@ const Sidebar = lazy(() => import('@/features/sidebar/components/Sidebar'));
 const AboutContent = lazy(() => import('@/features/about/components/AboutContent'));
 const CartContent = lazy(() => import('@/features/cart/components/CartContent'));
 const ProductDetail = lazy(() => import('@/features/products/components/ProductDetail'));
+const OrdersContent = lazy(() => import('@/features/orders/components/OrdersContent'));
 
 // Component registry mapping
 const componentRegistry: Record<string, React.ComponentType<any>> = {
@@ -20,6 +20,7 @@ const componentRegistry: Record<string, React.ComponentType<any>> = {
   'aboutContent': AboutContent,
   'cartContent': CartContent,
   'productDetail': ProductDetail,
+  'ordersContent': OrdersContent,
 };
 
 // Loading fallback
@@ -30,17 +31,22 @@ const ComponentLoader = () => (
 );
 
 // Component renderer function
-export function renderComponent(config: ComponentConfig) {
-  const Component = componentRegistry[config.type];
+export function renderComponent(component: any) {
+  const Component = componentRegistry[component.type];
   
   if (!Component) {
-    console.error(`Component type "${config.type}" not found in registry`);
-    return <div className="text-red-500">Component not found: {config.type}</div>;
+    console.error(`Component type "${component.type}" not found in registry`);
+    return <div className="text-red-500">Component not found: {component.type}</div>;
   }
 
-  return (
-    <Suspense key={config.id} fallback={<ComponentLoader />}>
-      <Component {...(config.props || {})} />
-    </Suspense>
-  );
+  switch (component.type) {
+    case 'ordersContent':
+      return <OrdersContent key={component.id} {...component.props} />;
+    default:
+      return (
+        <Suspense key={component.id} fallback={<ComponentLoader />}>
+          <Component {...(component.props || {})} />
+        </Suspense>
+      );
+  }
 }
