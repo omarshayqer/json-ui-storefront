@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import ShopPage from "./pages/shop";
 import AboutPage from "./pages/about";
 import CartPage from "./pages/cart";
+import CheckoutPage from "./pages/checkout";
 import OrdersPage from "./pages/orders";
 import ProductDetailsPage from "./pages/product-details";
 import NotFound from "./pages/NotFound";
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/orders" element={<OrdersPage />} />
           <Route path="/product/:id" element={<ProductDetailsPage />} />
           <Route path="*" element={<NotFound />} />

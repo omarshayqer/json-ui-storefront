@@ -39,6 +39,14 @@
       ]
     },
     {
+      "page": "checkout",
+      "title": "Checkout | Standard eCommerce",
+      "components": [
+        { "id": "checkout-content", "type": "checkoutContent", "props": { "layout": "standard" }, "style": { "padding": "2rem 0" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
       "page": "product-details",
       "title": "Product Details | Standard eCommerce",
       "components": [

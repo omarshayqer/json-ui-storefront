@@ -9,6 +9,7 @@ const Footer = lazy(() => import('@/features/footer/components/Footer'));
 const Sidebar = lazy(() => import('@/features/sidebar/components/Sidebar'));
 const AboutContent = lazy(() => import('@/features/about/components/AboutContent'));
 const CartContent = lazy(() => import('@/features/cart/components/CartContent'));
+const CheckoutContent = lazy(() => import('@/features/checkout/components/CheckoutContent'));
 const ProductDetail = lazy(() => import('@/features/products/components/ProductDetail'));
 const OrdersContent = lazy(() => import('@/features/orders/components/OrdersContent'));
 const FeaturedProducts = lazy(() => import('@/features/carousel/components/FeaturedProducts'));
@@ -26,6 +27,7 @@ const componentRegistry: Record<string, React.ComponentType<any>> = {
   'sidebar': Sidebar,
   'aboutContent': AboutContent,
   'cartContent': CartContent,
+  'checkoutContent': CheckoutContent,
   'productDetail': ProductDetail,
   'ordersContent': OrdersContent,
   'featuredProducts': FeaturedProducts,

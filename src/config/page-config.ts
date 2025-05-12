@@ -3,10 +3,29 @@
 import { getTemplateConfig, getTemplateNavigation, NavigationItem, TemplateNavigation } from './template-configs';
 import { create } from 'zustand';
 
+export interface StyleConfig {
+  height?: string;
+  width?: string;
+  colors?: {
+    background?: string;
+    text?: string;
+    border?: string;
+  };
+  border?: {
+    width?: string;
+    style?: string;
+    radius?: string;
+  };
+  shadow?: string;
+  padding?: string;
+  margin?: string;
+}
+
 export interface ComponentConfig {
   id: string;
   type: string;
   props?: Record<string, any>;
+  style?: StyleConfig;
 }
 
 export interface PageConfig {

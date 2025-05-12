@@ -6,7 +6,7 @@
       "title": "Home | Premium eCommerce",
       "components": [
         { "id": "hero-banner", "type": "banner", "props": { "variant": "hero", "title": "Exclusive Collections", "subtitle": "Discover our premium selection" } },
-        { "id": "featured-products", "type": "products", "props": { "variant": "grid", "displayVariant": "detailed", "title": "Featured Items", "limit": 3 } },
+        { "id": "featured-products", "type": "products", "props": { "variant": "grid", "displayVariant": "detailed", "title": "Featured Items", "limit": 3 }, "style": { "colors": { "background": "#f8f9fa" }, "padding": "3rem 0" } },
         { "id": "promotional-banner", "type": "banner", "props": { "variant": "promo", "title": "Limited Edition", "subtitle": "Shop our exclusive items before they're gone" } },
         { "id": "quick-products", "type": "products", "props": { "variant": "grid", "displayVariant": "minimal", "title": "Bestsellers", "limit": 6 } },
         { "id": "main-footer", "type": "footer" }
@@ -37,6 +37,15 @@
       "components": [
         { "id": "cart-header", "type": "banner", "props": { "variant": "simple", "title": "Your Selections", "subtitle": "Review your premium items" } },
         { "id": "cart-content", "type": "cartContent", "props": { "layout": "premium" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "checkout",
+      "title": "Checkout | Premium eCommerce",
+      "components": [
+        { "id": "checkout-header", "type": "banner", "props": { "variant": "simple", "title": "Complete Your Purchase", "subtitle": "Secure checkout process" } },
+        { "id": "checkout-content", "type": "checkoutContent", "props": { "layout": "premium" }, "style": { "padding": "3rem 0", "shadow": "0 10px 15px -3px rgba(0, 0, 0, 0.1)" } },
         { "id": "main-footer", "type": "footer" }
       ]
     },
