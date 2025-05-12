@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { CSSProperties } from "react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 import { cn } from "@/lib/utils";
 
@@ -20,6 +20,7 @@ interface AnimatedElementProps {
   className?: string;
   threshold?: number;
   once?: boolean;
+  style?: CSSProperties;
 }
 
 export function AnimatedElement({
@@ -30,6 +31,7 @@ export function AnimatedElement({
   className,
   threshold = 0.1,
   once = true,
+  style = {},
 }: AnimatedElementProps) {
   const { ref, isVisible } = useScrollAnimation({ threshold, once });
 
@@ -54,6 +56,7 @@ export function AnimatedElement({
       style={{
         transitionDuration: `${duration}ms`,
         transitionDelay: `${delay}ms`,
+        ...style
       }}
     >
       {children}

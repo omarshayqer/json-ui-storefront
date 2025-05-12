@@ -68,6 +68,11 @@ export default {
 					light: '#5dade2',
 					dark: '#2980b9',
 				},
+				'tech-blue': 'hsl(var(--tech-blue))',
+				'tech-dark': 'hsl(var(--tech-dark))',
+				'tech-silver': 'hsl(var(--tech-silver))',
+				'tech-accent': 'hsl(var(--tech-accent))',
+				'tech-green': 'hsl(var(--tech-green))',
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
