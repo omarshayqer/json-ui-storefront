@@ -18,6 +18,8 @@ const StoreLocation = lazy(() => import('@/features/store-location/components/St
 const Testimonials = lazy(() => import('@/features/testimonials/components/Testimonials'));
 const SupportButton = lazy(() => import('@/features/support/components/SupportButton'));
 const MiniCart = lazy(() => import('@/features/cart/components/MiniCart'));
+const ElectronicsShowcase = lazy(() => import('@/features/electronics/components/ElectronicsShowcase'));
+const SpecsComparison = lazy(() => import('@/features/electronics/components/SpecsComparison'));
 
 // Component registry mapping
 const componentRegistry: Record<string, React.ComponentType<any>> = {
@@ -36,6 +38,8 @@ const componentRegistry: Record<string, React.ComponentType<any>> = {
   'testimonials': Testimonials,
   'supportButton': SupportButton,
   'miniCart': MiniCart,
+  'electronicsShowcase': ElectronicsShowcase,
+  'specsComparison': SpecsComparison
 };
 
 // Loading fallback

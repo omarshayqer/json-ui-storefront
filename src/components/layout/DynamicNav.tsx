@@ -16,6 +16,7 @@ import {
   MenubarItem,
   MenubarSeparator,
 } from "@/components/ui/menubar";
+import { useTranslation } from 'react-i18next';
 
 // Map of icon names to icon components
 const iconMap: Record<string, React.ComponentType> = {
@@ -29,6 +30,7 @@ const iconMap: Record<string, React.ComponentType> = {
 export default function DynamicNav() {
   const { selectedTemplate, navigation, isLoading } = useTemplateStore();
   const location = useLocation();
+  const { t } = useTranslation();
   
   useEffect(() => {
     loadTemplateNavigation();
@@ -64,7 +66,7 @@ export default function DynamicNav() {
               }`}
             >
               <Icon className="h-4 w-4" />
-              {item.text}
+              {t(`header.${item.text.toLowerCase()}`)}
             </Link>
           );
         })}
@@ -76,7 +78,7 @@ export default function DynamicNav() {
           <MenubarTrigger className="cursor-pointer px-3 py-2 text-gray-700 hover:text-brand">
             <div className="flex items-center gap-2">
               <User className="h-4 w-4" />
-              <span>Account</span>
+              <span>{t('header.account')}</span>
             </div>
           </MenubarTrigger>
           <MenubarContent>
@@ -88,7 +90,7 @@ export default function DynamicNav() {
                   <MenubarItem key={item.text} asChild>
                     <Link to={item.link} className="flex items-center gap-2">
                       <Icon className="h-4 w-4" />
-                      {item.text}
+                      {t(`header.${item.text.toLowerCase()}`)}
                     </Link>
                   </MenubarItem>
                 );

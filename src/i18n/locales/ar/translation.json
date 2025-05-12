@@ -1,0 +1,61 @@
+
+{
+  "header": {
+    "home": "الرئيسية",
+    "shop": "المتجر",
+    "about": "من نحن",
+    "cart": "السلة",
+    "orders": "الطلبات",
+    "search": "بحث",
+    "login": "تسجيل الدخول",
+    "account": "الحساب"
+  },
+  "banner": {
+    "welcome": "مرحباً بك في متجر الإلكترونيات",
+    "subtitle": "أحدث التقنيات بين يديك",
+    "shopNow": "تسوق الآن"
+  },
+  "products": {
+    "title": "المنتجات المميزة",
+    "newArrivals": "وصل حديثاً",
+    "bestSellers": "الأكثر مبيعاً",
+    "addToCart": "أضف إلى السلة",
+    "viewDetails": "عرض التفاصيل",
+    "inStock": "متوفر",
+    "outOfStock": "غير متوفر"
+  },
+  "checkout": {
+    "title": "إتمام الشراء",
+    "shippingInfo": "معلومات الشحن",
+    "paymentInfo": "معلومات الدفع",
+    "orderSummary": "ملخص الطلب",
+    "placeOrder": "إتمام الطلب",
+    "continueShopping": "متابعة التسوق",
+    "backToCart": "العودة إلى السلة"
+  },
+  "storefront": {
+    "visitUs": "زورنا في المتجر",
+    "directions": "احصل على الإتجاهات",
+    "testimonials": "آراء عملائنا",
+    "support": "بحاجة للمساعدة؟"
+  },
+  "categories": {
+    "laptops": "أجهزة الحاسوب المحمولة",
+    "smartphones": "الهواتف الذكية",
+    "accessories": "الإكسسوارات",
+    "audio": "الصوتيات",
+    "cameras": "الكاميرات",
+    "gaming": "الألعاب"
+  },
+  "electronics": {
+    "specs": "المواصفات",
+    "features": "الميزات",
+    "reviews": "التقييمات",
+    "warranty": "الضمان",
+    "compatibility": "التوافق"
+  },
+  "language": {
+    "english": "English",
+    "arabic": "العربية"
+  }
+}

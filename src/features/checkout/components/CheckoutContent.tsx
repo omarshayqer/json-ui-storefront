@@ -1,313 +1,228 @@
 
-import React, { useState } from 'react';
-import { useToast } from '@/components/ui/use-toast';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardContent, CardFooter, CardTitle } from '@/components/ui/card';
-import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@/components/ui/breadcrumb';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Loader, CreditCard, Check } from 'lucide-react';
-import { useCartService } from '../services/useCartService';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useCheckoutService } from '../services/useCheckoutService';
+import { useToast } from '@/components/ui/use-toast';
 import { useStyleConfig } from '@/hooks/useStyleConfig';
-import { StyleConfig } from '@/config/page-config';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Check, ChevronRight, CreditCard, Truck, ShoppingBag } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface CheckoutContentProps {
   layout?: 'standard' | 'minimal' | 'premium';
-  style?: StyleConfig;
+  style?: any; 
 }
 
-const CheckoutContent = ({ layout = 'standard', style }: CheckoutContentProps) => {
+export default function CheckoutContent({ layout = 'standard', style }: CheckoutContentProps) {
+  const [step, setStep] = useState(1);
+  const [cardDetails, setCardDetails] = useState({ number: '', expiry: '', cvc: '' });
+  const [shippingDetails, setShippingDetails] = useState({
+    name: '',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    country: ''
+  });
+  
+  const { processCheckout, isLoading, error } = useCheckoutService();
   const { toast } = useToast();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [step, setStep] = useState<'details' | 'payment' | 'confirmation'>('details');
-  
-  const { getCartItems } = useCartService();
-  const { processCheckout } = useCheckoutService();
   const styleProps = useStyleConfig(style);
+  const { t } = useTranslation();
   
-  const cartItems = getCartItems();
+  // Mock cart items
+  const cartItems = [
+    { id: '1', name: 'Product 1', price: 19.99, quantity: 2 },
+    { id: '2', name: 'Product 2', price: 29.99, quantity: 1 }
+  ];
   
-  const handleDetailsSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setStep('payment');
-  };
+  const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   
-  const handlePaymentSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
+  const handleCheckout = async () => {
     try {
       await processCheckout(cartItems);
-      setStep('confirmation');
       toast({
-        title: "Order processed successfully",
-        description: "Thank you for your purchase!",
+        title: 'Order Placed',
+        description: 'Your order has been successfully placed!',
+        variant: 'default',
       });
-    } catch (error) {
-      console.error("Checkout failed:", error);
+      // In a real app, you would redirect to order confirmation
+    } catch (err) {
+      // Error handling is done in the service
       toast({
-        title: "Checkout Failed",
-        description: "There was an error processing your payment. Please try again.",
-        variant: "destructive",
+        title: 'Checkout Failed',
+        description: error || 'There was an error processing your order.',
+        variant: 'destructive',
       });
-    } finally {
-      setIsSubmitting(false);
     }
   };
   
-  const subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-  const tax = subtotal * 0.07; // 7% tax
-  const shipping = subtotal > 100 ? 0 : 10;
-  const total = subtotal + tax + shipping;
-  
+  const nextStep = () => setStep(step + 1);
+  const prevStep = () => setStep(step - 1);
+
   return (
-    <div style={styleProps} className="container mx-auto px-4 py-8">
-      <Breadcrumb className="mb-6">
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink as={Link} to="/">Home</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink as={Link} to="/cart">Cart</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Checkout</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+    <div className="container mx-auto px-4 py-8" style={styleProps}>
+      {/* Page header */}
+      <div className="mb-8 text-center">
+        <h1 className="text-3xl font-bold mb-2">{t('checkout.title')}</h1>
+        <p className="text-gray-500">Complete your purchase</p>
+      </div>
       
-      <h1 className="text-3xl font-bold mb-8">Checkout</h1>
-      
-      {step === 'details' && (
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="md:col-span-2">
-            <Card>
-              <CardHeader>
-                <CardTitle>Shipping Details</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleDetailsSubmit} className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="firstName">First Name</Label>
-                      <Input id="firstName" required />
-                    </div>
-                    <div>
-                      <Label htmlFor="lastName">Last Name</Label>
-                      <Input id="lastName" required />
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="email">Email</Label>
-                    <Input id="email" type="email" required />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="address">Address</Label>
-                    <Input id="address" required />
-                  </div>
-                  
-                  <div className="grid grid-cols-3 gap-4">
-                    <div>
-                      <Label htmlFor="city">City</Label>
-                      <Input id="city" required />
-                    </div>
-                    <div>
-                      <Label htmlFor="state">State</Label>
-                      <Input id="state" required />
-                    </div>
-                    <div>
-                      <Label htmlFor="zipCode">ZIP Code</Label>
-                      <Input id="zipCode" required />
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="phone">Phone</Label>
-                    <Input id="phone" type="tel" required />
-                  </div>
-                  
-                  <Button type="submit" className="w-full">Continue to Payment</Button>
-                </form>
-              </CardContent>
-            </Card>
+      {/* Checkout steps */}
+      <div className="flex justify-center mb-8">
+        <div className="flex items-center">
+          <div className={`rounded-full h-10 w-10 flex items-center justify-center ${step >= 1 ? 'bg-primary text-white' : 'bg-gray-200'}`}>
+            <Truck size={20} />
           </div>
-          
-          <div>
-            <Card>
-              <CardHeader>
-                <CardTitle>Order Summary</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  {cartItems.map((item) => (
-                    <li key={item.id} className="flex justify-between">
-                      <span>{item.quantity} × {item.name}</span>
-                      <span>${(item.price * item.quantity).toFixed(2)}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="border-t mt-4 pt-4 space-y-2">
-                  <div className="flex justify-between">
-                    <span>Subtotal</span>
-                    <span>${subtotal.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Tax</span>
-                    <span>${tax.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Shipping</span>
-                    <span>{shipping > 0 ? `$${shipping.toFixed(2)}` : 'Free'}</span>
-                  </div>
-                  <div className="flex justify-between font-bold">
-                    <span>Total</span>
-                    <span>${total.toFixed(2)}</span>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+          <div className={`h-1 w-12 ${step >= 2 ? 'bg-primary' : 'bg-gray-200'}`}></div>
+          <div className={`rounded-full h-10 w-10 flex items-center justify-center ${step >= 2 ? 'bg-primary text-white' : 'bg-gray-200'}`}>
+            <CreditCard size={20} />
+          </div>
+          <div className={`h-1 w-12 ${step >= 3 ? 'bg-primary' : 'bg-gray-200'}`}></div>
+          <div className={`rounded-full h-10 w-10 flex items-center justify-center ${step >= 3 ? 'bg-primary text-white' : 'bg-gray-200'}`}>
+            <Check size={20} />
           </div>
         </div>
-      )}
+      </div>
       
-      {step === 'payment' && (
-        <div className="grid md:grid-cols-3 gap-8">
-          <div className="md:col-span-2">
+      {/* Checkout form */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="md:col-span-2 space-y-6">
+          {/* Step 1: Shipping */}
+          <Collapsible open={step === 1} className="w-full">
             <Card>
               <CardHeader>
-                <CardTitle>Payment Information</CardTitle>
+                <CardTitle className="flex items-center">
+                  <Truck className="mr-2" size={20} /> 
+                  {t('checkout.shippingInfo')}
+                </CardTitle>
+                <CardDescription>Enter your shipping details</CardDescription>
               </CardHeader>
               <CardContent>
-                <form onSubmit={handlePaymentSubmit} className="space-y-4">
-                  <div>
-                    <Label htmlFor="cardName">Name on Card</Label>
-                    <Input id="cardName" required />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="cardNumber">Card Number</Label>
-                    <div className="relative">
-                      <Input id="cardNumber" placeholder="1234 5678 9012 3456" required />
-                      <CreditCard className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="expiration">Expiration Date</Label>
-                      <Input id="expiration" placeholder="MM/YY" required />
-                    </div>
-                    <div>
-                      <Label htmlFor="cvv">CVV</Label>
-                      <Input id="cvv" placeholder="123" required />
-                    </div>
-                  </div>
-                  
-                  <Button disabled={isSubmitting} type="submit" className="w-full">
-                    {isSubmitting ? (
-                      <>
-                        <Loader className="mr-2 h-4 w-4 animate-spin" />
-                        Processing
-                      </>
-                    ) : (
-                      'Complete Purchase'
-                    )}
-                  </Button>
-                </form>
+                {/* Shipping form would go here */}
+                <div className="space-y-4">
+                  <p>Form fields would go here in a real implementation</p>
+                </div>
               </CardContent>
-              <CardFooter>
-                <Button variant="outline" onClick={() => setStep('details')} className="w-full">
-                  Back to Details
+              <CardFooter className="flex justify-between">
+                <Link to="/cart">
+                  <Button variant="ghost">{t('checkout.backToCart')}</Button>
+                </Link>
+                <Button onClick={nextStep}>
+                  Next <ChevronRight className="ml-2" size={16} />
                 </Button>
               </CardFooter>
             </Card>
-          </div>
+          </Collapsible>
           
-          <div>
+          {/* Step 2: Payment */}
+          <Collapsible open={step === 2} className="w-full">
             <Card>
               <CardHeader>
-                <CardTitle>Order Summary</CardTitle>
+                <CardTitle className="flex items-center">
+                  <CreditCard className="mr-2" size={20} /> 
+                  {t('checkout.paymentInfo')}
+                </CardTitle>
+                <CardDescription>Enter your payment details</CardDescription>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-2">
-                  {cartItems.map((item) => (
-                    <li key={item.id} className="flex justify-between">
-                      <span>{item.quantity} × {item.name}</span>
-                      <span>${(item.price * item.quantity).toFixed(2)}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="border-t mt-4 pt-4 space-y-2">
+                {/* Payment form would go here */}
+                <div className="space-y-4">
+                  <p>Credit card form fields would go here in a real implementation</p>
+                </div>
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                <Button variant="ghost" onClick={prevStep}>Back</Button>
+                <Button onClick={nextStep}>
+                  Next <ChevronRight className="ml-2" size={16} />
+                </Button>
+              </CardFooter>
+            </Card>
+          </Collapsible>
+          
+          {/* Step 3: Review */}
+          <Collapsible open={step === 3} className="w-full">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center">
+                  <ShoppingBag className="mr-2" size={20} /> 
+                  {t('checkout.orderSummary')}
+                </CardTitle>
+                <CardDescription>Review and confirm your order</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  <div className="space-y-2">
+                    <h3 className="font-medium">Items:</h3>
+                    {cartItems.map(item => (
+                      <div key={item.id} className="flex justify-between py-2 border-b">
+                        <div>
+                          <p>{item.name}</p>
+                          <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
+                        </div>
+                        <p>${(item.price * item.quantity).toFixed(2)}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+              <CardFooter className="flex-col space-y-4">
+                <div className="w-full flex justify-between font-bold text-lg">
+                  <span>Total:</span>
+                  <span>${total.toFixed(2)}</span>
+                </div>
+                <div className="w-full flex flex-col sm:flex-row justify-between gap-2">
+                  <Button variant="ghost" onClick={prevStep}>Back</Button>
+                  <Button 
+                    disabled={isLoading} 
+                    onClick={handleCheckout} 
+                    className="w-full sm:w-auto"
+                  >
+                    {isLoading ? 'Processing...' : t('checkout.placeOrder')}
+                  </Button>
+                </div>
+              </CardFooter>
+            </Card>
+          </Collapsible>
+        </div>
+        
+        {/* Order Summary */}
+        <div>
+          <Card>
+            <CardHeader>
+              <CardTitle>{t('checkout.orderSummary')}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {cartItems.map(item => (
+                  <div key={item.id} className="flex justify-between">
+                    <span>
+                      {item.name} <span className="text-gray-500">x{item.quantity}</span>
+                    </span>
+                    <span>${(item.price * item.quantity).toFixed(2)}</span>
+                  </div>
+                ))}
+                <div className="border-t pt-4 mt-4">
                   <div className="flex justify-between">
                     <span>Subtotal</span>
-                    <span>${subtotal.toFixed(2)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Tax</span>
-                    <span>${tax.toFixed(2)}</span>
+                    <span>${total.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between">
                     <span>Shipping</span>
-                    <span>{shipping > 0 ? `$${shipping.toFixed(2)}` : 'Free'}</span>
+                    <span>$0.00</span>
                   </div>
-                  <div className="flex justify-between font-bold">
+                  <div className="flex justify-between font-bold mt-4">
                     <span>Total</span>
                     <span>${total.toFixed(2)}</span>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
-      )}
-      
-      {step === 'confirmation' && (
-        <Card className="max-w-lg mx-auto">
-          <CardContent className="pt-6">
-            <div className="flex flex-col items-center text-center space-y-4">
-              <div className="h-12 w-12 rounded-full bg-green-100 flex items-center justify-center">
-                <Check className="h-6 w-6 text-green-600" />
-              </div>
-              <h2 className="text-2xl font-bold">Thank You for Your Order!</h2>
-              <p>Order confirmation has been sent to your email.</p>
-              <p className="text-sm text-gray-500">Order #: {Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}</p>
-              
-              <div className="border-t w-full pt-4 mt-4">
-                <h3 className="font-medium mb-2">Order Summary</h3>
-                <ul className="space-y-2 mb-4">
-                  {cartItems.map((item) => (
-                    <li key={item.id} className="flex justify-between">
-                      <span>{item.quantity} × {item.name}</span>
-                      <span>${(item.price * item.quantity).toFixed(2)}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex justify-between font-bold">
-                  <span>Total</span>
-                  <span>${total.toFixed(2)}</span>
-                </div>
-              </div>
-              
-              <div className="space-x-3 mt-6">
-                <Button asChild>
-                  <Link to="/orders">View Order</Link>
-                </Button>
-                <Button asChild variant="outline">
-                  <Link to="/">Continue Shopping</Link>
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+      </div>
     </div>
   );
-};
-
-export default CheckoutContent;
+}

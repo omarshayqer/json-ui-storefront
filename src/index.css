@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -49,6 +50,13 @@
     --sidebar-border: 220 13% 91%;
 
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Electronics theme colors */
+    --tech-blue: 210 100% 50%;
+    --tech-dark: 220 13% 18%;
+    --tech-silver: 240 5% 84%;
+    --tech-accent: 263 90% 51%;
+    --tech-green: 142 76% 36%;
   }
 
   .dark {
@@ -97,5 +105,45 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+  
+  /* RTL Support */
+  html[dir="rtl"] .space-x-4 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1 !important;
+  }
+  
+  html[dir="rtl"] .space-x-1 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1 !important;
+  }
+  
+  html[dir="rtl"] .space-x-2 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 1 !important;
+  }
+  
+  html[dir="rtl"] .text-left {
+    text-align: right;
+  }
+  
+  html[dir="rtl"] .text-right {
+    text-align: left;
+  }
+}
+
+/* Electronics Theme Components */
+@layer components {
+  .tech-card {
+    @apply bg-white border border-tech-silver/40 rounded-xl shadow-md overflow-hidden transition-all hover:shadow-lg;
+  }
+  
+  .tech-gradient {
+    @apply bg-gradient-to-r from-tech-blue to-tech-accent text-white;
+  }
+  
+  .tech-badge {
+    @apply px-2 py-1 text-xs font-semibold rounded-md bg-tech-dark/10 text-tech-dark;
+  }
+  
+  .spec-row {
+    @apply flex justify-between py-2 border-b border-gray-100 last:border-0;
   }
 }

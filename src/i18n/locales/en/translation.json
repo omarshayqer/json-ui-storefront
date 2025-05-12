@@ -1,0 +1,61 @@
+
+{
+  "header": {
+    "home": "Home",
+    "shop": "Shop",
+    "about": "About",
+    "cart": "Cart",
+    "orders": "Orders",
+    "search": "Search",
+    "login": "Login",
+    "account": "Account"
+  },
+  "banner": {
+    "welcome": "Welcome to Electronics Store",
+    "subtitle": "The latest technology at your fingertips",
+    "shopNow": "Shop Now"
+  },
+  "products": {
+    "title": "Featured Products",
+    "newArrivals": "New Arrivals",
+    "bestSellers": "Best Sellers",
+    "addToCart": "Add to Cart",
+    "viewDetails": "View Details",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "shippingInfo": "Shipping Information",
+    "paymentInfo": "Payment Information",
+    "orderSummary": "Order Summary",
+    "placeOrder": "Place Order",
+    "continueShopping": "Continue Shopping",
+    "backToCart": "Back to Cart"
+  },
+  "storefront": {
+    "visitUs": "Visit Our Store",
+    "directions": "Get Directions",
+    "testimonials": "What Our Customers Say",
+    "support": "Need Help?"
+  },
+  "categories": {
+    "laptops": "Laptops",
+    "smartphones": "Smartphones",
+    "accessories": "Accessories",
+    "audio": "Audio",
+    "cameras": "Cameras",
+    "gaming": "Gaming"
+  },
+  "electronics": {
+    "specs": "Specifications",
+    "features": "Features",
+    "reviews": "Reviews",
+    "warranty": "Warranty",
+    "compatibility": "Compatibility"
+  },
+  "language": {
+    "english": "English",
+    "arabic": "العربية"
+  }
+}
