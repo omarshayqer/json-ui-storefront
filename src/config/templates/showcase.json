@@ -1,0 +1,93 @@
+
+{
+  "pages": [
+    {
+      "page": "home",
+      "title": "Component Showcase | All Variants",
+      "components": [
+        { "id": "hero-banner", "type": "banner", "props": { "variant": "hero", "title": "Component Showcase", "subtitle": "Experience all product display variants" } },
+        
+        { "id": "hero-product-showcase", "type": "productShowcase", "props": { "variant": "hero", "title": "Hero Product Showcase", "limit": 1 } },
+        
+        { "id": "trending-showcase", "type": "productShowcase", "props": { "variant": "trending", "title": "Trending Products", "subtitle": "What's hot right now", "limit": 4 } },
+        
+        { "id": "banner-showcase", "type": "productShowcase", "props": { "variant": "banner", "title": "Banner Collection", "subtitle": "Featured in style", "limit": 4 } },
+        
+        { "id": "featured-showcase", "type": "productShowcase", "props": { "variant": "featured", "title": "Featured Collection", "subtitle": "Handpicked favorites", "limit": 4 } },
+        
+        { "id": "compact-grid", "type": "productGrid", "props": { "variant": "compact", "displayVariant": "compact", "title": "Compact Grid - Compact Display", "limit": 12 } },
+        
+        { "id": "standard-grid-minimal", "type": "productGrid", "props": { "variant": "standard", "displayVariant": "minimal", "title": "Standard Grid - Minimal Display", "limit": 8 } },
+        
+        { "id": "standard-grid-card", "type": "productGrid", "props": { "variant": "standard", "displayVariant": "card", "title": "Standard Grid - Card Display", "limit": 4 } },
+        
+        { "id": "spacious-grid-detailed", "type": "productGrid", "props": { "variant": "spacious", "displayVariant": "detailed", "title": "Spacious Grid - Detailed Display", "limit": 3 } },
+        
+        { "id": "masonry-grid-tile", "type": "productGrid", "props": { "variant": "masonry", "displayVariant": "tile", "title": "Masonry Grid - Tile Display", "limit": 8 } },
+        
+        { "id": "masonry-grid-standard", "type": "productGrid", "props": { "variant": "masonry", "displayVariant": "standard", "title": "Masonry Grid - Standard Display", "limit": 6 } },
+        
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "shop",
+      "title": "Shop Layouts Showcase",
+      "components": [
+        { "id": "shop-header", "type": "banner", "props": { "variant": "simple", "title": "Shop Layout Variants", "subtitle": "Try different shop experiences" } },
+        { "id": "shop-layout", "type": "shopLayout", "props": { "variant": "advanced", "showFilters": true, "showSort": true, "showViewToggle": true, "showSearch": true } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "about",
+      "title": "About | Showcase",
+      "components": [
+        { "id": "about-content", "type": "aboutContent", "props": { "layout": "standard" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "cart",
+      "title": "Cart | Showcase",
+      "components": [
+        { "id": "cart-content", "type": "cartContent", "props": { "layout": "standard" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "checkout",
+      "title": "Checkout | Showcase",
+      "components": [
+        { "id": "checkout-content", "type": "checkoutContent", "props": { "layout": "standard" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "product-details",
+      "title": "Product Details | Showcase",
+      "components": [
+        { "id": "product-detail", "type": "productDetail", "props": { "layout": "standard" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    },
+    {
+      "page": "orders",
+      "title": "Orders | Showcase",
+      "components": [
+        { "id": "orders-content", "type": "ordersContent", "props": { "layout": "standard" } },
+        { "id": "main-footer", "type": "footer" }
+      ]
+    }
+  ],
+  "navigation": {
+    "items": [
+      { "text": "Home", "link": "/", "icon": "home" },
+      { "text": "Shop", "link": "/shop", "icon": "shopping-cart" },
+      { "text": "About", "link": "/about", "icon": "info" }
+    ],
+    "accountItems": [
+      { "text": "Orders", "link": "/orders", "icon": "package", "requiredPlan": "showcase" }
+    ]
+  }
+}

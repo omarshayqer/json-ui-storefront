@@ -6,7 +6,8 @@
       "title": "Home | Minimal eCommerce",
       "components": [
         { "id": "simple-banner", "type": "banner", "props": { "variant": "simple", "title": "Minimal Store", "subtitle": "Less is more" }, "style": { "colors": { "background": "#ffffff" } } },
-        { "id": "minimal-products", "type": "products", "props": { "variant": "grid", "displayVariant": "minimal", "title": "Shop", "limit": 12 } },
+        { "id": "minimal-products", "type": "productGrid", "props": { "variant": "compact", "displayVariant": "minimal", "title": "Shop", "limit": 12 } },
+        { "id": "showcase-trending", "type": "productShowcase", "props": { "variant": "trending", "title": "What's Popular", "limit": 4 } },
         { "id": "main-footer", "type": "footer" }
       ]
     },
@@ -14,7 +15,7 @@
       "page": "shop",
       "title": "Shop | Minimal eCommerce",
       "components": [
-        { "id": "shop-layout", "type": "products", "props": { "variant": "grid", "displayVariant": "minimal", "limit": 24 } },
+        { "id": "shop-layout", "type": "shopLayout", "props": { "variant": "minimal", "showFilters": false, "showSort": false } },
         { "id": "main-footer", "type": "footer" }
       ]
     },

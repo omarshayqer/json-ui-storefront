@@ -6,8 +6,10 @@
       "title": "Home | Standard eCommerce",
       "components": [
         { "id": "hero-banner", "type": "banner", "props": { "variant": "hero", "title": "Welcome to our Store", "subtitle": "Shop the latest products with amazing deals" } },
-        { "id": "featured-products", "type": "products", "props": { "variant": "grid", "displayVariant": "standard", "title": "Featured Products", "limit": 4 } },
-        { "id": "promotional-banner", "type": "banner", "props": { "variant": "promo", "title": "Summer Sale", "subtitle": "Get up to 40% off on selected items" } },
+        { "id": "hero-showcase", "type": "productShowcase", "props": { "variant": "hero", "title": "Featured Product", "limit": 1 } },
+        { "id": "featured-products", "type": "productGrid", "props": { "variant": "standard", "displayVariant": "card", "title": "Featured Products", "limit": 4 } },
+        { "id": "banner-showcase", "type": "productShowcase", "props": { "variant": "banner", "title": "Summer Collection", "subtitle": "Discover our latest arrivals", "limit": 4 } },
+        { "id": "grid-products", "type": "productGrid", "props": { "variant": "spacious", "displayVariant": "standard", "title": "Best Sellers", "limit": 6 } },
         { "id": "main-footer", "type": "footer" }
       ]
     },
@@ -16,7 +18,7 @@
       "title": "Shop | Standard eCommerce",
       "components": [
         { "id": "shop-header", "type": "banner", "props": { "variant": "simple", "title": "Our Products", "subtitle": "Explore our collection" } },
-        { "id": "shop-layout", "type": "products", "props": { "variant": "grid", "displayVariant": "standard", "title": "All Products", "limit": 8 } },
+        { "id": "shop-layout", "type": "shopLayout", "props": { "variant": "sidebar", "showFilters": true, "showSort": true, "showViewToggle": true } },
         { "id": "main-footer", "type": "footer" }
       ]
     },

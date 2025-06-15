@@ -1,4 +1,3 @@
-
 import { PageConfig } from './page-config';
 
 // Create a type for the navigation structure
@@ -84,3 +83,42 @@ export async function getTemplateNavigation(templateName: string = 'standard'): 
   const templateData = await getTemplateData(templateName);
   return templateData.navigation;
 }
+
+export const templateConfigs: TemplateConfig[] = [
+  {
+    id: 'minimal',
+    name: 'Minimal',
+    description: 'Clean and simple design with essential features',
+    category: 'Basic',
+    features: ['Product listing', 'Cart functionality', 'Basic checkout'],
+    colors: { primary: '#000000', secondary: '#ffffff', accent: '#f5f5f5' },
+    configPath: '/templates/minimal.json'
+  },
+  {
+    id: 'standard',
+    name: 'Standard',
+    description: 'Balanced design with comprehensive eCommerce features',
+    category: 'Popular',
+    features: ['Advanced product display', 'Customer reviews', 'Wishlist', 'Search & filters'],
+    colors: { primary: '#2563eb', secondary: '#ffffff', accent: '#f1f5f9' },
+    configPath: '/templates/standard.json'
+  },
+  {
+    id: 'premium',
+    name: 'Premium',
+    description: 'Luxury design with advanced features for high-end stores',
+    category: 'Professional',
+    features: ['Premium layouts', 'Advanced analytics', 'Customer accounts', 'Order tracking'],
+    colors: { primary: '#7c3aed', secondary: '#ffffff', accent: '#faf5ff' },
+    configPath: '/templates/premium.json'
+  },
+  {
+    id: 'showcase',
+    name: 'Component Showcase',
+    description: 'Demonstrates all available component variants and layouts',
+    category: 'Demo',
+    features: ['All product displays', 'Multiple grid variants', 'Showcase layouts', 'All component types'],
+    colors: { primary: '#059669', secondary: '#ffffff', accent: '#f0fdf4' },
+    configPath: '/templates/showcase.json'
+  }
+];

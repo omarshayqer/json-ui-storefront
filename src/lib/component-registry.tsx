@@ -5,6 +5,9 @@ import { ComponentConfig } from '@/config/page-config';
 // Dynamic imports for our components
 const Banner = lazy(() => import('@/features/banner/components/Banner'));
 const Products = lazy(() => import('@/features/products/components/Products'));
+const ProductGrid = lazy(() => import('@/features/products/components/ProductGrid'));
+const ProductShowcase = lazy(() => import('@/features/products/components/ProductShowcase'));
+const ShopLayout = lazy(() => import('@/features/shop/components/ShopLayout'));
 const Footer = lazy(() => import('@/features/footer/components/Footer'));
 const Sidebar = lazy(() => import('@/features/sidebar/components/Sidebar'));
 const AboutContent = lazy(() => import('@/features/about/components/AboutContent'));
@@ -25,6 +28,9 @@ const SpecsComparison = lazy(() => import('@/features/electronics/components/Spe
 const componentRegistry: Record<string, React.ComponentType<any>> = {
   'banner': Banner,
   'products': Products,
+  'productGrid': ProductGrid,
+  'productShowcase': ProductShowcase,
+  'shopLayout': ShopLayout,
   'footer': Footer,
   'sidebar': Sidebar,
   'aboutContent': AboutContent,
