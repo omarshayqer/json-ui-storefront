@@ -2,13 +2,14 @@
 import { Product } from '../hooks/useProducts';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { Star } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { Star, ShoppingCart, Heart, Eye } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface ProductCardProps {
   product: Product;
   variant?: 'grid' | 'list';
-  displayVariant?: 'minimal' | 'standard' | 'detailed';
+  displayVariant?: 'minimal' | 'standard' | 'detailed' | 'card' | 'tile' | 'compact';
 }
 
 export function ProductCard({ 
@@ -18,7 +19,119 @@ export function ProductCard({
 }: ProductCardProps) {
   const isGrid = variant === 'grid';
 
-  // Render different card layouts based on the displayVariant prop
+  // Compact variant - very small cards
+  if (displayVariant === 'compact') {
+    return (
+      <Card className="overflow-hidden transition-shadow hover:shadow-md h-full">
+        <Link to={`/product/${product.id}`} className="block">
+          <div className="aspect-square relative">
+            <img
+              src={product.image}
+              alt={product.name}
+              className="object-cover w-full h-full"
+            />
+          </div>
+        </Link>
+        <CardContent className="p-2">
+          <Link to={`/product/${product.id}`} className="hover:underline">
+            <h3 className="font-medium text-xs line-clamp-2 mb-1">{product.name}</h3>
+          </Link>
+          <p className="text-sm font-bold text-brand-dark">${product.price.toFixed(2)}</p>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  // Tile variant - square layout with overlay
+  if (displayVariant === 'tile') {
+    return (
+      <Card className="overflow-hidden group relative h-full">
+        <div className="aspect-square relative">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+          />
+          <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+            <div className="flex gap-2">
+              <Button size="sm" variant="outline" className="text-white border-white">
+                <Eye className="w-4 h-4" />
+              </Button>
+              <Button size="sm" variant="outline" className="text-white border-white">
+                <Heart className="w-4 h-4" />
+              </Button>
+              <Button size="sm" className="bg-brand hover:bg-brand-dark">
+                <ShoppingCart className="w-4 h-4" />
+              </Button>
+            </div>
+          </div>
+          <Badge className="absolute top-2 left-2 bg-brand text-white">
+            {product.category}
+          </Badge>
+        </div>
+        <CardContent className="p-4 absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur">
+          <Link to={`/product/${product.id}`} className="hover:underline">
+            <h3 className="font-semibold text-sm line-clamp-1">{product.name}</h3>
+          </Link>
+          <div className="flex items-center justify-between mt-2">
+            <p className="text-lg font-bold text-brand-dark">${product.price.toFixed(2)}</p>
+            <div className="flex items-center">
+              <Star className="h-4 w-4 text-yellow-400 fill-yellow-400" />
+              <span className="text-xs ml-1">{product.rating.rate}</span>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  // Card variant - more emphasis on visual design
+  if (displayVariant === 'card') {
+    return (
+      <Card className="overflow-hidden transition-all hover:shadow-xl group h-full border-0 shadow-lg">
+        <div className="relative">
+          <Link to={`/product/${product.id}`} className={`relative ${isGrid ? 'h-56' : 'h-full'} block`}>
+            <img
+              src={product.image}
+              alt={product.name}
+              className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
+            />
+          </Link>
+          <div className="absolute top-4 right-4">
+            <Button size="sm" variant="outline" className="bg-white/80 backdrop-blur border-0">
+              <Heart className="w-4 h-4" />
+            </Button>
+          </div>
+        </div>
+        <CardContent className="p-6">
+          <Badge variant="outline" className="mb-3">
+            {product.category}
+          </Badge>
+          <Link to={`/product/${product.id}`} className="hover:underline">
+            <h3 className="font-bold text-xl mb-2">{product.name}</h3>
+          </Link>
+          <p className="text-gray-600 mb-4 line-clamp-2">{product.description}</p>
+          <div className="flex items-center mb-4">
+            <div className="flex text-yellow-400 mr-2">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className={`w-4 h-4 ${i < Math.floor(product.rating.rate) ? 'fill-current' : ''}`} />
+              ))}
+            </div>
+            <span className="text-sm text-gray-500">({product.rating.count})</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-2xl font-bold text-brand-dark">${product.price.toFixed(2)}</span>
+            <Button className="bg-brand hover:bg-brand-dark">
+              <ShoppingCart className="w-4 h-4 mr-2" />
+              Add to Cart
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  // Minimal variant
   if (displayVariant === 'minimal') {
     return (
       <Card className={`overflow-hidden transition-shadow hover:shadow-md ${isGrid ? 'h-full' : 'flex flex-row'}`}>
@@ -46,6 +159,7 @@ export function ProductCard({
     );
   }
 
+  // Detailed variant
   if (displayVariant === 'detailed') {
     return (
       <Card className={`overflow-hidden transition-shadow hover:shadow-md ${isGrid ? 'h-full' : 'flex flex-row'}`}>
